@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>花言葉図鑑 - Flower Language</title>
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "vgnb0c5kvh");
+    </script>
+    <style>
+        /* Google Fonts: 日本語は明朝体、英語は筆記体でおしゃれに */
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Noto+Serif+JP:wght@400;700&family=Yuji+Syuku&family=Zen+Maru+Gothic:wght@400&display=swap');
+
+        :root {
+            --bg-color: #fdfbf7;
+            --text-color: #4a4a4a;
+            --accent-color: #d4a373;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Noto Serif JP', serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+        }
+
+        /* ナビゲーションバー */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            backdrop-filter: blur(5px);
+        }
+        .nav-logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: var(--text-color);
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(to bottom, #fff0f5, var(--bg-color));
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4.5rem;
+            margin: 0;
+            color: var(--text-color);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            letter-spacing: 0.2em;
+            margin-top: 10px;
+            color: #888;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .flower-card {
+            background: transparent;
+            margin-bottom: 100px;
+            padding-bottom: 60px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .flower-card:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .card-image {
+            width: 100%;
+            max-width: 500px;
+            height: 350px;
+            object-fit: cover;
+            display: block;
+            border-radius: 8px;
+            margin: 0 auto 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .card-content {
+            padding: 0 10px;
+            text-align: center;
+        }
+
+        .flower-name {
+            margin: 0 0 20px;
+            color: #2c3e50;
+        }
+
+        .jp-name {
+            font-family: 'Zen Maru Gothic', sans-serif;
+            font-size: 2.4rem;
+            display: inline-block;
+            line-height: 1.2;
+            margin-right: 10px;
+        }
+
+        .kana-name {
+            font-family: 'Zen Maru Gothic', sans-serif;
+            font-size: 1.1rem;
+            color: #888;
+            display: inline-block;
+        }
+
+        .en-name {
+            display: block;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            font-family: 'Dancing Script', cursive;
+            margin-top: 8px;
+        }
+
+        .hanakotoba {
+            font-weight: bold;
+            color: #e76f51;
+            margin: 15px 0 20px;
+            display: inline-block;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 8px 20px;
+            font-size: 0.95rem;
+        }
+
+        .description {
+            font-size: 1rem;
+            color: #666;
+            text-align: center;
+            line-height: 2;
+            margin-top: 25px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            font-size: 0.8rem;
+            color: #aaa;
+            font-family: sans-serif;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            .container { gap: 30px; }
+        }
+
+        /* 画像リンクのスタイル */
+        .flower-link {
+            display: block;
+            transition: opacity 0.3s;
+        }
+        .flower-link:hover {
+            opacity: 0.7;
+        }
+        /* 画像クリック用スタイル */
+        .card-image-wrapper {
+            cursor: pointer;
+        }
+
+        /* 検索ボックス */
+        .search-box input {
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            background: #fdfdfd;
+            font-family: 'Noto Serif JP', serif;
+            font-size: 0.9rem;
+            width: 200px;
+            outline: none;
+            transition: all 0.3s;
+        }
+        .search-box input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 8px rgba(212, 163, 115, 0.2);
+        }
+
+        /* スクロールアニメーション */
+        .scroll-animation {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .scroll-animation.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 花言葉タグ */
+        .hanakotoba-tag {
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        .hanakotoba-tag:hover {
+            color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        /* 検索結果なしメッセージ */
+        #no-result-message {
+            text-align: center;
+            padding: 60px 20px;
+            color: #888;
+            font-size: 1.1rem;
+        }
+
+        /* ナビゲーションアイコン */
+        .nav-icon {
+            width: 32px;
+            height: 32px;
+            color: var(--accent-color);
+            margin-right: 10px;
+        }
+
+        /* 詳細ポップアップ（モーダル） */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background: #fff;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            border-radius: 12px;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            transform: translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: flex;
+            flex-direction: column;
+        }
+        @media (min-width: 768px) {
+            .modal-content {
+                flex-direction: row;
+            }
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+        .modal-image-col {
+            flex: 1;
+            background: #f0f0f0;
+        }
+        .modal-image-col img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            min-height: 300px;
+        }
+        .modal-info-col {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .close-modal {
+            position: absolute;
+            top: 15px; right: 20px;
+            font-size: 2rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #fff;
+            text-shadow: 0 0 5px rgba(0,0,0,0.5);
+            z-index: 10;
+            transition: color 0.3s;
+        }
+        @media (min-width: 768px) {
+            .close-modal { color: #aaa; text-shadow: none; }
+            .close-modal:hover { color: var(--accent-color); }
+        }
+        .modal-section-title {
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-top: 20px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        .modal-description {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #555;
+            text-align: justify;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div style="display: flex; align-items: center;">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 7.5a4.5 4.5 0 1 1 4.5 4.5M12 7.5A4.5 4.5 0 1 0 7.5 12M12 7.5V9m0 9v3m0-3a4.5 4.5 0 1 1-4.5-4.5M12 18a4.5 4.5 0 1 0 4.5-4.5M12 18v-3" />
+            </svg>
+            <div class="nav-logo">Flower Gallery</div>
+        </div>
+        <div class="search-box">
+            <input type="text" id="search-input" placeholder="花の名前で検索...">
+        </div>
+    </nav>
+
+    <header>
+        <h1>Flower Language</h1>
+        <div class="subtitle">花と心を通わせる、言葉の贈り物</div>
+    </header>
+
+    <!-- 詳細ポップアップ -->
+    <div id="flower-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="modal-image-col">
+                <img id="modal-img" src="" alt="">
+            </div>
+            <div class="modal-info-col">
+                <h2 id="modal-name" class="flower-name"></h2>
+                <div id="modal-hanakotoba" class="hanakotoba"></div>
+                <div class="modal-section-title">【特徴・植生】</div>
+                <p id="modal-description" class="modal-description"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+    
+        <article class="flower-card scroll-animation">
+    <div class="card-image-wrapper">
+        <img src=img\download\PAK56_murasakiironoanemone_TP_V.webp alt="アネモネ" class="card-image">
+    </div>
+    <div class="card-content">
+        <h2 class="flower-name"><span class="jp-name">牡丹一華</span><span class="kana-name">アネモネ</span><span class="en-name">Anemone</span></h2>
+        <div class="hanakotoba">「あなたを愛します」「はかない恋」</div>
+        <p class="description">
+            地中海沿岸原産の多年草で、和名は「牡丹一華（ぼたんいちげ）」。<br>
+            春の訪れを告げる代表的な花の一つで、風に揺れる姿からギリシャ語で「風」を意味する「Anemos」が語源とされています。
+        </p>
+        <div class="detail-data" hidden>
+            キンポウゲ科イチリンソウ属の多年草。地中海沿岸が原産地です。日当たりと水はけの良い場所を好み、2月から5月にかけて赤、紫、白などの鮮やかな花を咲かせます。球根植物ですが、乾燥させた球根を急に吸水させると腐りやすいため、湿らせたバーミキュライトなどでゆっくり吸水させる処理が必要です。
+        </div>
+    </div>
+</article>
+
+<!-- 2. フレンチマリーゴールド -->
+<article class="flower-card scroll-animation">
+    <div class="card-image-wrapper">
+        <img src=img\download\mitte102520937_TP_V.jpg alt="フレンチマリーゴールド" class="card-image">
+    </div>
+    <div class="card-content">
+        <h2 class="flower-name"><span class="jp-name">孔雀草</span><span class="kana-name">フレンチマリーゴールド</span><span class="en-name">French Marigold</span></h2>
+        <div class="hanakotoba">「いつも変わらぬ愛」「変わらぬ心」</div>
+        <p class="description">
+            メキシコ原産ですが、フランスの王室で愛好されたことからこの名がつきました。<br>
+            横に広がるような草姿が特徴で、コンパニオンプランツとしても非常に優秀な花です。
+        </p>
+        <div class="detail-data" hidden>
+            キク科コウオウソウ属の一年草。メキシコ原産。アフリカンマリーゴールドに比べて草丈が低く、横に広がる性質があります。開花期が6月～10月と長く、暑さにも強いです。根から分泌される成分には土壌センチュウ（ネマトーダ）を抑制する効果があり、野菜と一緒に植えるコンパニオンプランツとしても利用されます。
+        </div>
+    </div>
+</article>
+
+<!-- 3. 四つ葉のクローバー -->
+<article class="flower-card scroll-animation">
+    <div class="card-image-wrapper">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdKDBe4E7-NTWSnPZIU_gq3kCVaRueNqlBOg&s" alt="四つ葉のクローバー" class="card-image">
+    </div>
+    <div class="card-content">
+        <h2 class="flower-name"><span class="jp-name">四葉詰草</span><span class="kana-name">ヨツバノクローバー</span><span class="en-name">Four-leaf Clover</span></h2>
+        <div class="hanakotoba">「幸運」「私のものになって」</div>
+        <p class="description">
+            シロツメクサの変異体で、発生確率は数万分の一とも言われます。<br>
+            四枚の葉にはそれぞれ「希望」「信仰」「愛情」「幸福」の意味が込められているという言い伝えが有名です。
+        </p>
+        <div class="detail-data" hidden>
+            マメ科シャジクソウ属のシロツメクサ（白詰草）に見られる変異体です。通常は3枚の小葉ですが、成長点の傷や遺伝的な要因で4枚になることがあります。踏みつけに強く、匍匐茎（ランナー）を伸ばして地表を這うように広がります。根粒菌と共生し、土壌を肥沃にする働きもあります。
+        </div>
+    </div>
+</article>
+
+<!-- 4. ノディングアネモネ (オキナグサ) -->
+<article class="flower-card scroll-animation">
+    <div class="card-image-wrapper">
+        <img src=img\download\72438870.jpg alt="ノディングアネモネ" class="card-image">
+    </div>
+    <div class="card-content">
+        <h2 class="flower-name"><span class="jp-name">西洋翁草</span><span class="kana-name">ノディングアネモネ</span><span class="en-name">Nodding Anemone</span></h2>
+        <div class="hanakotoba">「裏切りの恋」「清純な心」</div>
+        <p class="description">
+            日本名では「オキナグサ（翁草）」に近い仲間で、花が下向きにうなだれる（Nodding）ように咲くのが特徴です。<br>
+            可憐な見た目ですが、根に毒性を含んでいるという側面も持っています。
+        </p>
+        <div class="detail-data" hidden>
+            キンポウゲ科オキナグサ属の多年草。全体が白い毛で覆われており、花が終わった後の種子につく綿毛が老人の白髪のように見えることから「翁草」の仲間とされます。日当たりの良い草原を好みますが、開発により自生地が減少し、絶滅危惧種に指定されている地域も多い希少な植物です。
+        </div>
+    </div>
+</article>
+
+<!-- 5. コスモス -->
+<article class="flower-card scroll-animation">
+    <div class="card-image-wrapper">
+        <img src=img\download\zubottyDSC07997-268_TP_V.webp alt="コスモス" class="card-image">
+    </div>
+    <div class="card-content">
+        <h2 class="flower-name"><span class="jp-name">秋桜</span><span class="kana-name">コスモス</span><span class="en-name">Cosmos</span></h2>
+        <div class="hanakotoba">「乙女の真心」「謙虚」</div>
+        <p class="description">
+            日本の秋を象徴する花で、「秋桜」とも書かれます。<br>
+            ギリシャ語の「Cosmos（秩序、調和、美）」に由来し、整然と並ぶ花弁の美しさが特徴です。
+        </p>
+        <div class="detail-data" hidden>
+            キク科コスモス属の一年草。メキシコ原産。短日植物の代表格で、秋になって日が短くなると開花スイッチが入ります（早咲きの品種もあります）。痩せた土地でもよく育つ強健な性質を持ち、こぼれ種でも増えるため、休耕田などを利用したコスモス畑が各地で見られます。
+        </div>
+    </div>
+</article>
+
+<!-- 6. 金木犀 -->
+<article class="flower-card scroll-animation">
+    <div class="card-image-wrapper">
+        <img src=img\download\360_F_227006761_qKWWCW49w4ts6421I4pQu4jgvrP3YO5E.jpg alt="金木犀" class="card-image">
+    </div>
+    <div class="card-content">
+        <h2 class="flower-name"><span class="jp-name">金木犀</span><span class="kana-name">キンモクセイ</span><span class="en-name">Fragrant Olive</span></h2>
+        <div class="hanakotoba">「謙虚」「気高い人」</div>
+        <p class="description">
+            秋に小さなオレンジ色の花を無数に咲かせ、強い芳香を放ちます。<br>
+            その香りは遠くまで届くことから「千里香」とも呼ばれ、季節の移ろいを感じさせる樹木です。
+        </p>
+        <div class="detail-data" hidden>
+            モクセイ科モクセイ属の常緑小高木。中国原産。9月下旬から10月中旬にかけて、オレンジ色の小花を密集して咲かせ、甘く強い芳香を放ちます。雌雄異株ですが、日本には花付きの良い雄株しか渡来していないと言われており、結実することはほとんどありません。大気汚染に弱い性質があります。
+        </div>
+    </div>
+</article>
+
+<!-- 7. 竜胆 -->
+<article class="flower-card scroll-animation">
+    <div class="card-image-wrapper">
+        <img src=img\download\c3201487a2e99a670b0cb7806a1aaed8_w.jpeg alt="竜胆" class="card-image">
+    </div>
+    <div class="card-content">
+        <h2 class="flower-name"><span class="jp-name">竜胆</span><span class="kana-name">リンドウ</span><span class="en-name">Gentian</span></h2>
+        <div class="hanakotoba">「勝利」「正義」</div>
+        <p class="description">
+            秋の山野を彩る代表的な野草で、上向きに咲く釣鐘状の青紫色の花が特徴です。<br>
+            根が非常に苦く、その苦さが竜の胆のようであることから「竜胆」の名がつきました。
+        </p>
+        <div class="detail-data" hidden>
+            リンドウ科リンドウ属の多年草。日本原産。秋の山野を代表する花で、晴天の時だけ花を開き、曇りや雨の日、夜間は閉じる性質があります。根は乾燥させて「竜胆（リュウタン）」という生薬になり、苦味健胃薬として利用されます。
+        </div>
+    </div>
+</article>
+
+<!-- 8. 彼岸花 -->
+<article class="flower-card scroll-animation">
+    <div class="card-image-wrapper">
+        <img src=img\download\makinami3Q3A7776-edit2_TP_V.webp alt="彼岸花" class="card-image">
+    </div>
+    <div class="card-content">
+        <h2 class="flower-name"><span class="jp-name">彼岸花</span><span class="kana-name">ヒガンバナ</span><span class="en-name">Red Spider Lily</span></h2>
+        <div class="hanakotoba">「情熱」「再会」</div>
+        <p class="description">
+            秋のお彼岸の時期に、鮮やかな赤い花を咲かせます。<br>
+            花が咲く時には葉がなく、葉が出る時には花がないという特徴から「葉見ず花見ず」とも呼ばれます。
+        </p>
+        <div class="detail-data" hidden>
+            ヒガンバナ科ヒガンバナ属の多年草。中国原産。秋の彼岸の頃に突然茎を伸ばして鮮やかな赤い花を咲かせます。有毒植物（特に鱗茎）で、モグラ除けとして田んぼの畦道や墓地に植えられてきました。種ができず、球根の分球で増えるため、日本中の彼岸花は遺伝的に同一と言われています。
+        </div>
+    </div>
+</article>
+
+<!-- 9. ラベンダー -->
+<article class="flower-card scroll-animation">
+    <div class="card-image-wrapper">
+        <img src=img\download\tuchimoto_p612D11_TP_V.webp alt="ラベンダー" class="card-image">
+    </div>
+    <div class="card-content">
+        <h2 class="flower-name"><span class="jp-name">薫衣草</span><span class="kana-name">ラベンダー</span><span class="en-name">Lavender</span></h2>
+        <div class="hanakotoba">「沈黙」「期待」</div>
+        <p class="description">
+            「ハーブの女王」と称されるほど香りが良く、リラックス効果があることで知られています。<br>
+            紫色の小花が穂状に咲く姿は美しく、乾燥させても香りが続くためポプリなどにも利用されます。
+        </p>
+        <div class="detail-data" hidden>
+            シソ科ラベンダー属の半低木。地中海沿岸原産。高温多湿を嫌い、冷涼で乾燥した気候を好みます（北海道の富良野などが有名）。全体に強い芳香があり、精油はアロマテラピーに、花はハーブティーや料理、ポプリなどに広く利用されます。
+        </div>
+    </div>
+</article>
+
+<!-- 10. ヒマワリ -->
+<article class="flower-card scroll-animation">
+    <div class="card-image-wrapper">
+        <img src="https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=800&q=80" alt="向日葵" class="card-image">
+    </div>
+    <div class="card-content">
+        <h2 class="flower-name"><span class="jp-name">向日葵</span><span class="kana-name">ヒマワリ</span><span class="en-name">Sunflower</span></h2>
+        <div class="hanakotoba">「私はあなただけを見つめる」「憧れ」</div>
+        <p class="description">
+            太陽の動きを追って花が回ると信じられていたことが名前の由来です。<br>
+            夏を象徴する花であり、その明るく力強い姿は多くの人に元気を与えます。
+        </p>
+        <div class="detail-data" hidden>
+            キク科ヒマワリ属の一年草。北アメリカ原産。夏に大きな黄色い花を咲かせます。「太陽を追って回る」と言われますが、実際に太陽を追尾するのは成長期の蕾までで、開花後は東を向いて固定されます。種子は食用油やスナックとして利用されます。
+        </div>
+    </div>
+</article>
+
+<!-- 11. チューリップ -->
+<article class="flower-card scroll-animation">
+    <div class="card-image-wrapper">
+        <img src=img\download\yuta71321_TP_V.webp alt="チューリップ" class="card-image">
+    </div>
+    <div class="card-content">
+        <h2 class="flower-name"><span class="jp-name">鬱金香</span><span class="kana-name">チューリップ</span><span class="en-name">Tulip</span></h2>
+        <div class="hanakotoba">「思いやり」「博愛」</div>
+        <p class="description">
+            春を代表する球根植物で、その形がトルコのターバン（Tulipan）に似ていることが名前の由来とされています。<br>
+            色や形が豊富で、世界中で最も親しまれている花の一つです。
+        </p>
+        <div class="detail-data" hidden>
+            ユリ科チューリップ属の球根植物。中央アジア～地中海沿岸原産。春にカップ状の花を咲かせます。一定期間の寒さに当たることで花芽が形成される性質があるため、球根は冬の寒さを経験させる必要があります。オランダが世界的な生産地として有名です。
+        </div>
+    </div>
+</article>
+
+<!-- 12. 鈴蘭 -->
+<article class="flower-card scroll-animation">
+    <div class="card-image-wrapper">
+        <img src=img\download\360_F_64447541_BOOPHwwQcOahKIx69XAyyRzxAEgoyFU0.jpg alt="鈴蘭" class="card-image">
+    </div>
+    <div class="card-content">
+        <h2 class="flower-name"><span class="jp-name">鈴蘭</span><span class="kana-name">スズラン</span><span class="en-name">Lily of the Valley</span></h2>
+        <div class="hanakotoba">「幸福の再来」「純粋」</div>
+        <p class="description">
+            君影草（きみかげそう）とも呼ばれ、春に小さな鈴のような白い花を咲かせます。<br>
+            フランスでは5月1日に愛する人へ贈る習慣があり、受け取った人には幸せが訪れると言われています。
+        </p>
+        <div class="detail-data" hidden>
+            キジカクシ科スズラン属の多年草。本州中部以北や北海道の高地に自生します。春に芳香のある白い鐘形の花を下向きに咲かせます。可愛らしい見た目ですが、全草（特に花や根）にコンバラトキシンなどの毒を含む有毒植物です。
+        </div>
+    </div>
+</article>
+
+<!-- 13. 霞草 -->
+<article class="flower-card scroll-animation">
+    <div class="card-image-wrapper">
+        <img src=img\download\kasumisou5_L.jpg alt="霞草" class="card-image">
+    </div>
+    <div class="card-content">
+        <h2 class="flower-name"><span class="jp-name">霞草</span><span class="kana-name">カスミソウ</span><span class="en-name">Baby's Breath</span></h2>
+        <div class="hanakotoba">「清らかな心」「無邪気」</div>
+        <p class="description">
+            細かく分かれた枝先に無数の小さな白い花を咲かせる姿が、春霞のように見えることから名付けられました。<br>
+            英名の「Baby's Breath（赤ちゃんの吐息）」は、その愛らしく繊細な姿に由来します。
+        </p>
+        <div class="detail-data" hidden>
+            ナデシコ科カスミソウ属の一年草または多年草。ユーラシア大陸原産。高温多湿を嫌います。フラワーアレンジメントや花束のボリューム出し、名脇役として欠かせない存在です。近年は染色液を吸わせてカラフルに着色されたものも人気があります。
+        </div>
+    </div>
+</article>
+
+<!-- 14. 紫陽花 -->
+<article class="flower-card scroll-animation">
+    <div class="card-image-wrapper">
+        <img src=img\download\publicdomainq-0034691lyp.jpg alt="紫陽花" class="card-image">
+    </div>
+    <div class="card-content">
+        <h2 class="flower-name"><span class="jp-name">紫陽花</span><span class="kana-name">アジサイ</span><span class="en-name">Hydrangea</span></h2>
+        <div class="hanakotoba">「移り気」「家族団らん」</div>
+        <p class="description">
+            土壌の性質によって花の色が変わることから「七変化」とも呼ばれます。<br>
+            小さな花が集まって咲く姿から「家族団らん」や「和気あいあい」といった温かい意味も持ちます。
+        </p>
+        <div class="detail-data" hidden>
+            アジサイ科アジサイ属の落葉低木。日本原産。梅雨時期を代表する花です。花びらに見える部分は「ガク」が変化した装飾花です。土壌が酸性だと青色、アルカリ性だと赤色になる性質があります（アントシアニンとアルミニウムの結合による）。
+        </div>
+    </div>
+</article>
+
+<!-- 15. 藤 -->
+<article class="flower-card scroll-animation">
+    <div class="card-image-wrapper">
+        <img src=img\download\IMG_5808-1024x683.jpg alt="藤" class="card-image">
+    </div>
+    <div class="card-content">
+        <h2 class="flower-name"><span class="jp-name">藤</span><span class="kana-name">フジ</span><span class="en-name">Wisteria</span></h2>
+        <div class="hanakotoba">「優しさ」「歓迎」</div>
+        <p class="description">
+            日本古来の花木で、垂れ下がる花房が風に揺れる姿は優雅そのもの。<br>
+            古くから女性の振袖姿や、しとやかな女性の象徴として和歌や絵画に描かれてきました。
+        </p>
+        <div class="detail-data" hidden>
+            マメ科フジ属のつる性落葉木本。日本固有種。4月から5月にかけて、淡い紫色の花を房状に垂れ下げて咲かせます。つるは右巻き（ノダフジ）で、他の木に巻き付いて高く登ります。非常に長寿で、樹齢数百年を超える巨木も存在します。
+        </div>
+    </div>
+</article>
+
+<!-- 16. 椿 -->
+<article class="flower-card scroll-animation">
+    <div class="card-image-wrapper">
+        <img src=img\download\360_F_257013273_KgMSrIJINClrRkakwXMkepS9QK872MZD.jpg alt="椿" class="card-image">
+    </div>
+    <div class="card-content">
+        <h2 class="flower-name"><span class="jp-name">椿</span><span class="kana-name">ツバキ</span><span class="en-name">Camellia</span></h2>
+        <div class="hanakotoba">「控えめな優しさ」「誇り」</div>
+        <p class="description">
+            冬から春にかけて、光沢のある緑の葉の中に鮮やかな花を咲かせます。<br>
+            花弁が散るのではなく、花ごと潔く落ちる姿が特徴的で、古くから茶花としても愛されています。
+        </p>
+        <div class="detail-data" hidden>
+            ツバキ科ツバキ属の常緑高木。日本原産。冬から春にかけて、厚みのある光沢葉の中に赤や白の花を咲かせます。花弁が個々に散らず、花首から落ちるのが特徴です（これが「首が落ちる」として武士には嫌われたという俗説もあります）。種子から採れる椿油は整髪料や食用として利用されます。
+        </div>
+    </div>
+</article>
+
+        <!-- 検索結果なしメッセージ -->
+        <div id="no-result-message" style="display: none;">
+            <p>条件に一致する花は見つかりませんでした。</p>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 Flower Language Gallery. All Rights Reserved.
+    </footer>
+
+    <script>
+        const targets = document.querySelectorAll('.scroll-animation');
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                // ビューポートに入ったら'visible'クラスを追加
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // 一度表示されたら監視を停止して、リソースを解放
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            rootMargin: "0px 0px -150px 0px" // 画面の下から150pxの位置で見え始めたらアニメーション開始
+        });
+
+        // 各要素を監視対象に追加
+        targets.forEach(target => observer.observe(target));
+
+        // 検索機能
+        const searchInput = document.getElementById('search-input');
+        const cards = document.querySelectorAll('.flower-card');
+        const noResultMsg = document.getElementById('no-result-message');
+
+        searchInput.addEventListener('input', (e) => {
+            const keyword = e.target.value.toLowerCase();
+            let hitCount = 0;
+
+            cards.forEach(card => {
+                const nameText = card.querySelector('.flower-name').textContent.toLowerCase();
+                const hanakotobaText = card.querySelector('.hanakotoba').textContent.toLowerCase();
+                
+                // 名前または花言葉にキーワードが含まれていれば表示
+                if (nameText.includes(keyword) || hanakotobaText.includes(keyword)) {
+                    card.style.display = '';
+                    card.classList.add('visible'); // 検索ヒット時は強制表示
+                    hitCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // 0件の場合にメッセージを表示
+            if (hitCount === 0) {
+                noResultMsg.style.display = 'block';
+            } else {
+                noResultMsg.style.display = 'none';
+            }
+        });
+
+        // 詳細ポップアップ機能
+        const modal = document.getElementById('flower-modal');
+        const closeModalBtn = document.querySelector('.close-modal');
+        const modalImg = document.getElementById('modal-img');
+        const modalName = document.getElementById('modal-name');
+        const modalHanakotoba = document.getElementById('modal-hanakotoba');
+        const modalDesc = document.getElementById('modal-description');
+
+        // 画像クリックイベントの設定
+        const imageWrappers = document.querySelectorAll('.card-image-wrapper');
+        imageWrappers.forEach(wrapper => {
+            wrapper.addEventListener('click', function() {
+                const card = this.closest('.flower-card');
+                
+                // データの取得
+                const imgSrc = card.querySelector('.card-image').src;
+                const nameHTML = card.querySelector('.flower-name').innerHTML;
+                const hanakotobaHTML = card.querySelector('.hanakotoba').innerHTML;
+                const detailText = card.querySelector('.detail-data').innerHTML;
+
+                // モーダルにセット
+                modalImg.src = imgSrc;
+                modalName.innerHTML = nameHTML;
+                modalHanakotoba.innerHTML = hanakotobaHTML;
+                modalDesc.innerHTML = detailText;
+
+                // 表示
+                modal.classList.add('active');
+            });
+        });
+
+        // モーダルを閉じる
+        closeModalBtn.addEventListener('click', () => modal.classList.remove('active'));
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.classList.remove('active');
+        });
+
+        // 花言葉をクリッカブルなタグに変換
+        const hanakotobaElements = document.querySelectorAll('.hanakotoba');
+        hanakotobaElements.forEach(el => {
+            const text = el.textContent;
+            // 「」で囲まれたテキストを抽出
+            const matches = text.match(/「(.*?)」/g);
+            
+            if (matches) {
+                el.innerHTML = ''; // 一旦クリア
+                matches.forEach(match => {
+                    const span = document.createElement('span');
+                    span.className = 'hanakotoba-tag';
+                    span.textContent = match; // 「」付きのまま表示
+                    
+                    // クリックイベント
+                    span.addEventListener('click', () => {
+                        // 「」を除いた文字で検索
+                        const keyword = match.replace(/[「」]/g, '');
+                        searchInput.value = keyword;
+                        searchInput.dispatchEvent(new Event('input')); // 検索実行
+                        window.scrollTo({ top: 0, behavior: 'smooth' }); // 上部へスクロール
+                    });
+                    
+                    el.appendChild(span);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
